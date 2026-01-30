@@ -10,6 +10,7 @@ from src.config import (
     REGISTERED_MODEL_NAME
 )
 
+
 class ModelRegistry:
     """Manage model versioning and promotion"""
 
@@ -106,7 +107,8 @@ class ModelRegistry:
             for model in models:
                 print(f"\nModel: {model.name}")
                 for version in model.latest_versions:
-                    print(f"  Version {version.version}: {version.current_stage}")
+                    print(
+                        f"  Version {version.version}: {version.current_stage}")
 
         except Exception as e:
             print(f"❌ Error listing models: {e}")
@@ -120,6 +122,7 @@ class ModelRegistry:
         print(f"✅ Model loaded successfully")
 
         return model
+
 
 if __name__ == "__main__":
     registry = ModelRegistry()
