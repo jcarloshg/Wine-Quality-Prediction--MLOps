@@ -31,13 +31,13 @@ if [ $attempt -eq $max_attempts ]; then
     exit 1
 fi
 
-# # Step 4: Train Models
-# echo -e "\n🤖 Step 4: Training Models..."
-# python3.12 -m src.train
+# Step 4: Train Models
+echo -e "\n🤖 Step 4: Training Models..."
+python3.12 -m src.train
 
-# # Step 5: Register Best Model
-# echo -e "\n📝 Step 5: Registering Best Model..."
-# python3.12 -m src.evaluate
+# Step 5: Register Best Model
+echo -e "\n📝 Step 5: Registering Best Model..."
+python3.12 -m src.evaluate
 
 echo ""
 echo "🚀 Starting Prediction API..."
