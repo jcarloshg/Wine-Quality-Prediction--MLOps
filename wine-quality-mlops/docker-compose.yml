@@ -1,11 +1,8 @@
-# Wine Quality MLOps - Docker Compose
-
 services:
-  wine-quality-mlops:
+  mlflow:
     build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: wine-quality-mlops
+      context: ..
+      dockerfile: docker/Dockerfile
     ports:
       - "5000:5000" # MLflow UI
       - "5001:5001" # Prediction API
@@ -13,14 +10,14 @@ services:
       - ./data:/app/data
       - ./models:/app/models
       - ./mlruns:/app/mlruns
+      - ./mlflow.db:/app/mlflow.db
     environment:
       - MLFLOW_TRACKING_URI=http://localhost:5000
-      - PYTHONUNBUFFERED=1
     command: >
-      sh -c "mlflow server
-             --backend-store-uri sqlite:///mlflow.db
-             --default-artifact-root ./mlruns
-             --host 0.0.0.0
+      sh -c "mlflow server 
+             --backend-store-uri sqlite:///mlflow.db 
+             --default-artifact-root ./mlruns 
+             --host 0.0.0.0 
              --port 5000 &
              sleep 5 &&
-             python -m src.predict"
+             python3.12 -m src.predict"

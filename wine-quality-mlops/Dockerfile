@@ -1,4 +1,4 @@
-# Wine Quality MLOps - Dockerfile
+# docker/Dockerfile
 FROM python:3.12-slim
 
 WORKDIR /app
@@ -6,18 +6,17 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
-    g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install dependencies
+# Copy requirements
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY src/ ./src/
-
-# Create necessary directories
-RUN mkdir -p data/raw data/processed models mlruns
+COPY data/ ./data/
+COPY models/ ./models/
+COPY venv .
 
 # Expose ports
 EXPOSE 5000 5001
@@ -28,5 +27,4 @@ CMD mlflow server \
     --default-artifact-root ./mlruns \
     --host 0.0.0.0 \
     --port 5000 & \
-    sleep 5 && \
-    python -m src.predict
+    python src/predict.py
