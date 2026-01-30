@@ -123,6 +123,7 @@ class ModelRegistry:
 
 if __name__ == "__main__":
     registry = ModelRegistry()
+    print(f"registry {registry}")
 
     # Register best model
     model_version = registry.register_best_model()

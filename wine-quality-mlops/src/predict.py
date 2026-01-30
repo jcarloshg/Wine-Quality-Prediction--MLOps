@@ -1,11 +1,4 @@
 # src/predict.py
-import mlflow
-import mlflow.sklearn
-import pandas as pd
-import numpy as np
-from flask import Flask, request, jsonify
-import joblib
-
 from src.config import (
     MLFLOW_TRACKING_URI,
     REGISTERED_MODEL_NAME,
@@ -13,6 +6,16 @@ from src.config import (
     API_HOST,
     API_PORT
 )
+import mlflow
+import mlflow.sklearn
+import pandas as pd
+import numpy as np
+from flask import Flask, request, jsonify
+import joblib
+
+print(["="]*60)
+print(f"🚀 Initializing Prediction Module...")
+print(["="]*60)
 
 
 class ModelPredictor:

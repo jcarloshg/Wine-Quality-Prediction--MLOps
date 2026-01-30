@@ -1,0 +1,79 @@
+# Wine Quality MLOps - .dockerignore
+# Prevents unnecessary files from being copied into Docker image
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# MLflow artifacts (will be mounted as volume)
+mlruns/
+mlflow.db
+*.db
+
+# Data files (will be mounted as volume)
+data/raw/
+data/processed/
+
+# Models (will be mounted as volume)
+models/*.pkl
+models/*.joblib
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+README.md
+LICENSE
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Test files
+tests/
+test-api.sh
+api-tests.http
+
+# Logs
+*.log
+logs/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Backup files
+*copy.*
+*.bak
+*.backup
+
+# Notebooks
+notebooks/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
