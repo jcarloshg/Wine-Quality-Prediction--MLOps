@@ -1,0 +1,24 @@
+# MLflow and tracking
+mlflow==2.9.2
+sqlalchemy==2.0.23
+
+# ML libraries
+scikit-learn==1.4.0
+pandas==2.1.4
+numpy==1.26.3
+
+# Visualization
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# API serving
+flask==3.0.0
+gunicorn==21.2.0
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+pyyaml==6.0.1
+
+# Testing
+pytest==7.4.3
