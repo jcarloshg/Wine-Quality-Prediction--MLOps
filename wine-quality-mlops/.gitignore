@@ -1,0 +1,321 @@
+# Wine Quality Prediction MLOps - .gitignore
+# Generated based on project structure and best practices
+
+# ============================================================================
+# Python
+# ============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.pytest_cache/
+.hypothesis/
+
+# ============================================================================
+# Virtual Environments
+# ============================================================================
+
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# ============================================================================
+# MLflow & Experiment Tracking
+# ============================================================================
+
+# MLflow artifacts and runs
+mlruns/
+mlflow.db
+*.db
+
+# Experiment artifacts
+artifacts/
+
+# ============================================================================
+# Data Files
+# ============================================================================
+
+# Raw data (downloaded from external sources)
+data/raw/
+data/raw/*.csv
+data/raw/*.txt
+data/raw/*.parquet
+
+# Processed data (can be regenerated)
+data/processed/
+data/processed/*.csv
+data/processed/*.parquet
+
+# Temporary data
+data/temp/
+data/tmp/
+
+# Large data files
+*.csv
+*.parquet
+*.feather
+*.h5
+*.hdf5
+
+# Exception: Keep sample/example data if needed
+!data/sample*.csv
+!data/example*.csv
+
+# ============================================================================
+# Models & Artifacts
+# ============================================================================
+
+# Model files (regenerated during training)
+models/*.pkl
+models/*.joblib
+models/*.h5
+models/*.pb
+models/*.pt
+models/*.pth
+models/*.onnx
+*.pkl
+*.joblib
+
+# Scaler and preprocessor objects
+scaler.pkl
+preprocessor.pkl
+encoder.pkl
+
+# ============================================================================
+# Jupyter Notebooks
+# ============================================================================
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Jupyter Notebook outputs (optional - uncomment to ignore outputs)
+# *.ipynb
+
+# ============================================================================
+# IDE & Editors
+# ============================================================================
+
+# VSCode
+.vscode/
+.history/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+
+# ============================================================================
+# Operating System
+# ============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+
+# Linux
+.directory
+.Trash-*
+
+# ============================================================================
+# Environment & Secrets
+# ============================================================================
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.envrc
+
+# Secrets and credentials
+*.pem
+*.key
+*.cert
+credentials.json
+secrets/
+.secrets/
+
+# ============================================================================
+# Logs & Temporary Files
+# ============================================================================
+
+# Log files
+*.log
+logs/
+*.out
+*.err
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+*.swp
+*.swo
+
+# Backup files
+*copy.txt
+*copy.*
+*.orig
+
+# ============================================================================
+# Docker
+# ============================================================================
+
+# Docker volumes
+docker-volumes/
+
+# ============================================================================
+# Documentation & Reports
+# ============================================================================
+
+# LaTeX
+*.aux
+*.lof
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+*.lb
+
+# Sphinx documentation
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# ============================================================================
+# Cloud & Deployment
+# ============================================================================
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Kubernetes
+kubeconfig
+
+# ============================================================================
+# Monitoring & Profiling
+# ============================================================================
+
+# Profiling data
+*.prof
+*.lprof
+
+# Memory profiling
+*.mprofile
+
+# ============================================================================
+# Type Checkers
+# ============================================================================
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# pytype
+.pytype/
+
+# ============================================================================
+# Miscellaneous
+# ============================================================================
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Exclude any local configuration
+local_config.py
+config.local.py
+
+# Output directories
+output/
+outputs/
+results/
+
+# Cache directories
+.cache/
+cache/
