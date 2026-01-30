@@ -11,6 +11,7 @@ MODELS_DIR = BASE_DIR / "models"
 
 # MLflow configuration
 MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
+# MLFLOW_TRACKING_URI = "http://192.168.101.9:5000"
 EXPERIMENT_NAME = "wine-quality-prediction"
 
 # Data configuration

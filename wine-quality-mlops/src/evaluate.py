@@ -65,30 +65,28 @@ class ModelRegistry:
         return model_version
 
     def promote_model_to_production(self, version=None):
-        """Promote a model version to Production stage"""
+        """Promote a model version to champion (production) using aliases"""
 
         if version is None:
             # Get latest version
             latest_versions = self.client.get_latest_versions(
-                REGISTERED_MODEL_NAME,
-                stages=["None"]
+                REGISTERED_MODEL_NAME
             )
             if not latest_versions:
                 print("❌ No model versions found")
                 return None
             version = latest_versions[0].version
 
-        print(f"\n🚀 Promoting model version {version} to Production...")
+        print(f"\n🚀 Setting model version {version} as champion...")
 
-        # Transition to production
-        self.client.transition_model_version_stage(
+        # Set champion alias (replaces stage-based promotion)
+        self.client.set_registered_model_alias(
             name=REGISTERED_MODEL_NAME,
-            version=version,
-            stage="Production",
-            archive_existing_versions=True
+            alias="champion",
+            version=version
         )
 
-        print(f"✅ Model version {version} is now in Production!")
+        print(f"✅ Model version {version} is now the champion!")
 
         return version
 
@@ -106,18 +104,21 @@ class ModelRegistry:
 
             for model in models:
                 print(f"\nModel: {model.name}")
-                for version in model.latest_versions:
-                    print(
-                        f"  Version {version.version}: {version.current_stage}")
+
+                # Get all versions for this model
+                for version_info in self.client.search_model_versions(f"name='{model.name}'"):
+                    aliases = version_info.aliases if hasattr(version_info, 'aliases') else []
+                    alias_str = f" [Aliases: {', '.join(aliases)}]" if aliases else ""
+                    print(f"  Version {version_info.version}{alias_str}")
 
         except Exception as e:
             print(f"❌ Error listing models: {e}")
 
     def load_production_model(self):
-        """Load the production model"""
-        model_uri = f"models:/{REGISTERED_MODEL_NAME}/Production"
+        """Load the champion (production) model"""
+        model_uri = f"models:/{REGISTERED_MODEL_NAME}@champion"
 
-        print(f"\n📦 Loading production model...")
+        print(f"\n📦 Loading champion model...")
         model = mlflow.sklearn.load_model(model_uri)
         print(f"✅ Model loaded successfully")
 

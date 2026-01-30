@@ -22,6 +22,7 @@ class ModelPredictor:
     """Handle model predictions"""
 
     def __init__(self):
+        print(f"📍 Tracking URI: {MLFLOW_TRACKING_URI}")
         mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
         self.model = None
         self.scaler = None
@@ -32,12 +33,15 @@ class ModelPredictor:
         print(f"🔍 Attempting to load model from: {MLFLOW_TRACKING_URI}")
 
         try:
-            model_uri = f"models:/{REGISTERED_MODEL_NAME}/Production"
-            print(f"   Trying production model: {model_uri}")
+            model_uri = f"models:/{REGISTERED_MODEL_NAME}@champion"
+            print(f"model_uri {model_uri}")
+            print(f"   Trying champion model: {model_uri}")
             self.model = mlflow.sklearn.load_model(model_uri)
-            print(f"✅ Production model loaded successfully")
+            print(f"self.model {self.model}")
+            print(f"✅ Champion model loaded successfully")
         except Exception as e:
-            print(f"⚠️  Could not load production model: {e}")
+            print(f" ⚠️⚠️⚠️ {e}")
+            print(f"⚠️  Could not load champion model: {e}")
             print(f"   Loading latest version instead...")
             try:
                 model_uri = f"models:/{REGISTERED_MODEL_NAME}/latest"

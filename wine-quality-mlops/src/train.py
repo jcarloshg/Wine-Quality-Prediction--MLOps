@@ -22,11 +22,11 @@ class ModelTrainer:
     """Train and track ML models with MLflow"""
 
     def __init__(self):
+        print(f"🔬 [train] Experiment: {EXPERIMENT_NAME}")
+        print(f"📍 [train] Tracking URI: {MLFLOW_TRACKING_URI}")
         mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
         mlflow.set_experiment(EXPERIMENT_NAME)
         self.experiment = mlflow.get_experiment_by_name(EXPERIMENT_NAME)
-        print(f"🔬 Experiment: {EXPERIMENT_NAME}")
-        print(f"📍 Tracking URI: {MLFLOW_TRACKING_URI}")
 
     def load_processed_data(self):
         """Load preprocessed train and test data"""
