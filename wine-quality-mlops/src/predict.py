@@ -13,9 +13,9 @@ import numpy as np
 from flask import Flask, request, jsonify
 import joblib
 
-print(["="]*60)
+print("=" * 60)
 print(f"🚀 Initializing Prediction Module...")
-print(["="]*60)
+print("=" * 60)
 
 
 class ModelPredictor:
@@ -29,20 +29,34 @@ class ModelPredictor:
 
     def load_production_model(self):
         """Load the production model and scaler"""
+        print(f"🔍 Attempting to load model from: {MLFLOW_TRACKING_URI}")
+
         try:
             model_uri = f"models:/{REGISTERED_MODEL_NAME}/Production"
+            print(f"   Trying production model: {model_uri}")
             self.model = mlflow.sklearn.load_model(model_uri)
-            print(f"✅ Production model loaded")
+            print(f"✅ Production model loaded successfully")
         except Exception as e:
             print(f"⚠️  Could not load production model: {e}")
-            print("   Loading latest version instead...")
-            model_uri = f"models:/{REGISTERED_MODEL_NAME}/latest"
-            self.model = mlflow.sklearn.load_model(model_uri)
+            print(f"   Loading latest version instead...")
+            try:
+                model_uri = f"models:/{REGISTERED_MODEL_NAME}/latest"
+                self.model = mlflow.sklearn.load_model(model_uri)
+                print(f"✅ Latest model loaded successfully")
+            except Exception as e2:
+                print(f"❌ Failed to load latest model: {e2}")
+                print(f"⚠️  No model available in MLflow registry!")
+                raise
 
         # Load scaler
         scaler_path = MODELS_DIR / "scaler.pkl"
+        print(f"🔍 Loading scaler from: {scaler_path}")
+
+        if not scaler_path.exists():
+            raise FileNotFoundError(f"Scaler not found at {scaler_path}")
+
         self.scaler = joblib.load(scaler_path)
-        print(f"✅ Scaler loaded")
+        print(f"✅ Scaler loaded successfully")
 
         return self.model
 
@@ -153,6 +167,7 @@ def start_api():
     print(f"\n🚀 Starting Prediction API...")
     print(f"   Host: {API_HOST}")
     print(f"   Port: {API_PORT}")
+    print(f"   MLflow URI: {MLFLOW_TRACKING_URI}")
     print(f"\n📡 Available endpoints:")
     print(f"   GET  /health")
     print(f"   POST /predict")
@@ -160,9 +175,16 @@ def start_api():
     print(f"   GET  /model_info")
 
     # Load model on startup
-    predictor.load_production_model()
+    try:
+        print(f"\n⏳ Loading model from MLflow...")
+        predictor.load_production_model()
+        print(f"\n✅ All components loaded successfully!")
+    except Exception as e:
+        print(f"\n❌ Failed to load model: {e}")
+        print(f"⚠️  API will start but predictions will fail until model is available")
 
     # Run app
+    print(f"\n🎉 API Server is starting...")
     app.run(host=API_HOST, port=API_PORT, debug=False)
 
 

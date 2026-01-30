@@ -6,6 +6,7 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements
@@ -16,15 +17,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 COPY data/ ./data/
 COPY models/ ./models/
-COPY venv .
+COPY start.sh .
+
+# Make start script executable
+RUN chmod +x start.sh
 
 # Expose ports
 EXPOSE 5000 5001
 
-# Run MLflow and API
-CMD mlflow server \
-    --backend-store-uri sqlite:///mlflow.db \
-    --default-artifact-root ./mlruns \
-    --host 0.0.0.0 \
-    --port 5000 & \
-    python src/predict.py
+# Run startup script
+CMD ["./start.sh"]
